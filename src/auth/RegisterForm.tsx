@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { register, AuthError, AuthResponse } from "./authApi";
-import { colors, spacing, radii, font } from "../styles/theme";
 
 interface Props {
   onSuccess: (res: AuthResponse) => void;
@@ -29,75 +28,63 @@ export default function RegisterForm({ onSuccess, onSwitch }: Props) {
   }
 
   return (
-    <form onSubmit={handleSubmit} style={styles.form}>
-      <h2 style={styles.title}>Create account</h2>
+    <form onSubmit={handleSubmit} className="flex flex-col gap-2">
+      <h2 className="text-xl font-semibold m-0 mb-4 text-gray-800 dark:text-gray-100">Create account</h2>
 
-      {error && <p style={styles.error}>{error}</p>}
+      {error && <p className="text-red-500 dark:text-red-400 m-0 text-sm">{error}</p>}
 
-      <label style={styles.label}>Name</label>
+      <label className="text-xs text-gray-500 dark:text-gray-400">Name</label>
       <input
         type="text"
         value={name}
         onChange={(e) => setName(e.target.value)}
         required
-        style={styles.input}
         placeholder="Jane Smith"
+        className="px-3 py-2 text-base border border-gray-300 rounded
+                   bg-white text-gray-900
+                   dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600
+                   focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
-      <label style={styles.label}>Email</label>
+      <label className="text-xs text-gray-500 dark:text-gray-400">Email</label>
       <input
         type="email"
         value={email}
         onChange={(e) => setEmail(e.target.value)}
         required
-        style={styles.input}
         placeholder="you@example.com"
+        className="px-3 py-2 text-base border border-gray-300 rounded
+                   bg-white text-gray-900
+                   dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600
+                   focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
-      <label style={styles.label}>Password</label>
+      <label className="text-xs text-gray-500 dark:text-gray-400">Password</label>
       <input
         type="password"
         value={password}
         onChange={(e) => setPassword(e.target.value)}
         required
         minLength={8}
-        style={styles.input}
         placeholder="Min. 8 characters"
+        className="px-3 py-2 text-base border border-gray-300 rounded
+                   bg-white text-gray-900
+                   dark:bg-gray-700 dark:text-gray-100 dark:border-gray-600
+                   focus:outline-none focus:ring-2 focus:ring-blue-500"
       />
 
-      <button type="submit" disabled={loading} style={styles.button}>
+      <button
+        type="submit"
+        disabled={loading}
+        className="mt-1 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 disabled:opacity-50 cursor-pointer"
+      >
         {loading ? "Creating account..." : "Create account"}
       </button>
 
-      <p style={styles.switch}>
+      <p className="mt-2 text-xs text-gray-500 dark:text-gray-400">
         Already have an account?{" "}
-        <span onClick={onSwitch} style={styles.link}>Sign in</span>
+        <span onClick={onSwitch} className="text-blue-500 cursor-pointer hover:underline">Sign in</span>
       </p>
     </form>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  form: { display: "flex", flexDirection: "column", gap: spacing.sm },
-  title: { margin: `0 0 ${spacing.md}px`, color: colors.text },
-  error: { color: colors.error, margin: 0 },
-  label: { fontSize: font.sizeSm, color: colors.muted },
-  input: {
-    padding: spacing.sm,
-    fontSize: font.sizeMd,
-    border: `1px solid ${colors.border}`,
-    borderRadius: radii.sm,
-  },
-  button: {
-    marginTop: spacing.xs,
-    padding: `${spacing.sm}px ${spacing.md}px`,
-    background: colors.primary,
-    color: colors.primaryText,
-    border: "none",
-    borderRadius: radii.sm,
-    fontSize: font.sizeMd,
-    cursor: "pointer",
-  },
-  switch: { margin: `${spacing.sm}px 0 0`, fontSize: font.sizeSm, color: colors.muted },
-  link: { color: colors.primary, cursor: "pointer" },
-};
