@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import LoginForm from "./LoginForm";
 import RegisterForm from "./RegisterForm";
 import { AuthResponse } from "./authApi";
-import { colors, spacing, radii } from "../styles/theme";
 
 interface Props {
   onAuthenticated: (res: AuthResponse) => void;
@@ -12,9 +11,9 @@ export default function AuthPage({ onAuthenticated }: Props) {
   const [mode, setMode] = useState<"login" | "register">("login");
 
   return (
-    <div style={styles.page}>
-      <div style={styles.card}>
-        <h1 style={styles.brand}>Weather App</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gray-100 dark:bg-gray-950">
+      <div className="w-full max-w-sm bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700 rounded-lg p-6">
+        <h1 className="text-2xl font-bold text-center text-blue-500 mb-6">Weather App</h1>
         {mode === "login"
           ? <LoginForm onSuccess={onAuthenticated} onSwitch={() => setMode("register")} />
           : <RegisterForm onSuccess={onAuthenticated} onSwitch={() => setMode("login")} />
@@ -23,26 +22,3 @@ export default function AuthPage({ onAuthenticated }: Props) {
     </div>
   );
 }
-
-const styles: Record<string, React.CSSProperties> = {
-  page: {
-    minHeight: "100vh",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    background: colors.background,
-  },
-  card: {
-    background: "#fff",
-    padding: spacing.lg,
-    borderRadius: radii.md,
-    border: `1px solid ${colors.borderLight}`,
-    width: "100%",
-    maxWidth: 400,
-  },
-  brand: {
-    margin: `0 0 ${spacing.lg}px`,
-    color: colors.primary,
-    textAlign: "center",
-  },
-};
