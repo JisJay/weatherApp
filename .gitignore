@@ -12,3 +12,4 @@ yarn-error.log*
 coverage/
 weather-test.js
 clear-sky-test.js
+dark-mode-test.js
